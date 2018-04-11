@@ -1,0 +1,64 @@
+<div class="normal-task">
+    <div class="search-content">
+        <p class="search-input">
+            <input type="text" [placeholder]="searchPlaceHolder" [(ngModel)]="_keyword">
+            <span><i class="fa fa-search"></i></span>
+        </p>
+        <p class="timepicker">
+            <nz-rangepicker [(ngModel)]="_dateRange" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
+        </p>
+        <p>
+          <button class="btn-btn" style="background:#495361" (click)="searchBtn()">搜索</button>
+        </p>
+        <p class="right-button">
+          <button class="btn-btn" style="background:#ef4149;padding:0 35px;" (click)="killTask()">KILL</button>
+          <button class="btn-btn" style="background:#ef4149" (click)="deleteTask()">删除任务</button>
+          <button class="btn-btn" style="background:#009cff;padding:0 35px;" (click)="resetTask()">重启</button>
+        </p>
+      </div>
+      <!-- <div class="tasking-nav">
+        <p *ngFor="let item of taskNav;index as i" (click)="changeTask(i)" [ngClass]="{'active':item.active}">{{item.name}}</p>
+      </div> -->
+      <div class="table-container">
+          <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [(nzPageSize)]="_pageSize" [nzTotal]="_total" [(nzPageIndex)]="_pageIndex" 
+          (nzPageIndexChange)="_refreshTables()"  (nzPageSizeChange)="_refreshTables(true)" nzShowSizeChanger  nzShowQuickJumper>
+          <thead nz-thead>
+            <tr>
+              <th nz-th nzCheckbox>
+                <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+                </label>
+              </th> 
+              <th nz-th *ngFor="let item of taskMetaList" >
+                <span *ngIf="item.index == 7" >
+                  <nz-popover [nzTrigger]="'click'" [nzPlacement]="'bottomLeft'">
+                    <i class="fa fa-navicon" nz-popover></i>
+                    <ng-template #nzTemplate>
+                    <div>
+                      <p class="item-status" *ngFor="let state of statusList" (click)="changeStatus(state.state)" >{{state.name}}</p> 
+                    </div>
+                    </ng-template>
+                  </nz-popover>
+                </span>
+                <span ngElse>{{item.title}}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+              <td nz-td nzCheckbox>
+                  <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)"></label>
+              </td>
+              <td nz-td>{{data.flowName}}</td>
+              <td nz-td>{{data.startTime}}</td>
+              <td nz-td>{{data.endTime}}</td>
+              <td nz-td>{{data.updaterid}}</td>
+              <td nz-td>{{data.executeIP}}</td>
+              <td nz-td>{{data.instanceid}}</td>
+              <td nz-td>{{data.runTime}}</td>
+              <td nz-td>{{data.status}}</td>
+              <td nz-td><a [routerLink]="['../status/view']" [queryParams]="{id:data.instanceid,name: data.flowName}">查看</a></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>

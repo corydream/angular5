@@ -1,0 +1,15 @@
+<div class="head">
+    <div class="inner">
+        <p class="logo"></p>
+        <ul class="nav">
+            <li *ngFor="let item of list"  routerLinkActive="active">
+                <a [routerLink]="item.route">{{item.title}}</a>
+            </li>
+        </ul>
+        <p class="account">
+            <span>帮助</span>
+            <span class="help-icon"><i class="fa fa-question-circle-o"></i></span>
+            <span>登录</span>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div>
+    <p>当前路径：<a *ngFor="let item of pathCrumbs;let i = index" (click)="backPath(item, i)"> {{item}} /</a></p>
+    <div class="border-item item-json">
+        <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [(nzPageSize)]="_pageSize" [nzTotal]="_total" [(nzPageIndex)]="_pageIndex" 
+        (nzPageIndexChange)="pathList(false, '')" (nzPageSizeChange)="pathList(false,'')" nzShowSizeChanger nzShowSizeChanger nzShowQuickJumper>
+            <thead nz-thead >
+              <tr> 
+                <th nz-th ><span><i class="fa fa-list"></i></span></th>
+                <th nz-th ><span>folder</span></th>
+                <th nz-th ><span>group</span></th>
+                <th nz-th ><span>owner</span></th>
+                <th nz-th ><span>premission</span></th>
+                <th nz-th ><span>size</span></th>
+                <th nz-th ><span>updateDate</span></th>
+                <!-- path premission size updateDate -->
+              </tr>
+            </thead>
+            <tbody nz-tbody>
+              <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                <td nz-td  (click)="pathList(true,data)">
+                  <span style="cursor: pointer;"><i class="fa" [ngClass]="{'fa-folder-open':data.directory,'fa-file-o':!data.directory}" ></i></span>
+                </td>
+                <td nz-td (click)="newPath(data)" style="cursor: pointer;">{{data.path}}</td>
+                <td nz-td>{{data.group}}</td>
+                <td nz-td>{{data.owner}}</td>
+                <td nz-td>{{data.premission}}</td>
+                <td nz-td>{{data.size}}</td>
+                <td nz-td>{{data.updateDate}}</td>
+              </tr>
+            </tbody>  
+          </nz-table>
+    </div>
+    <div nz-row class="label">
+        <div nz-col [nzSpan]="18">
+            <nz-upload [nzAction]="pathUpload + 'hdfs/file/upload?path='+pathArr.path" (nzChange)='change($event)'>
+            <button nz-button class="btn-btn" style="background:#009cff">
+              <i class="anticon anticon-upload"></i><span>Click to Upload</span>
+            </button> 
+          </nz-upload>
+        </div>
+    </div>
+</div>

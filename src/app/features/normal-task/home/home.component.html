@@ -1,0 +1,114 @@
+<div class="normal-task" >  
+  <div class="search-content" >
+      <p>
+        <button class="btn-btn" style="background:#f5f5f5;padding:0 29px;color:#354050;border:1px solid #354050" [routerLink]="['../../list']">
+            <i style="margin-right:5px" class="fa fa-reply"></i><span>back</span>
+        </button>
+      </p>
+      <p class="right-button">
+        <button class="btn-btn" style="background:#009cff;padding:0 12px;" (click)="runTask()">
+          <i style="margin-right:5px" class="anticon anticon-caret-right"></i><span>立即运行</span>
+        </button>
+        <button class="btn-btn" style="background:#f5f5f5;color:#354050;border:1px solid #354050" (click)="saveTask('')">
+            <i style="margin-right:5px" class="fa fa-save"></i><span>保存</span>
+          </button>
+      </p>
+  </div>
+
+
+  <!-- 拖拽 -->
+  <div class="container" (dragover)="allowDrop($event)">
+    <nav class="nav" style="height:calc(100vh - 320px);">
+      <p style="margin-top: 15px;font-weight: bold;">ACTIONS</p>
+      <!-- <div draggable="true" (dragstart)="drag($event)" data-mark="start" class="jtk-drag-item">
+        开始
+      </div> -->
+      <!-- <div draggable="true" (dragstart)="drag($event)" data-mark="square" class="jtk-drag-item">
+        <i class="anticon anticon-pie-chart"></i>
+        正方形
+      </div> -->
+      <div draggable="true" (dragstart)="drag($event,'Hive', 1,'','')" data-mark="rectangle" class="jtk-drag-item">
+        Hive  
+      </div>
+      <div draggable="true" (dragstart)="drag($event,'Shell', 2,'','')" data-mark="rectangle" class="jtk-drag-item">
+          Shell
+      </div>
+      <div draggable="true" (dragstart)="drag($event,'Kettle', 3,'','')" data-mark="rectangle" class="jtk-drag-item">
+          Kettle
+      </div>
+      <!-- <div draggable="true" (dragstart)="drag($event)" data-mark="rhombus" class="jtk-drag-item">
+        <i class="anticon anticon-pie-chart"></i>
+        菱形
+      </div> -->
+      <!-- <div draggable="true" (dragstart)="drag($event)" data-mark="end" class="jtk-drag-item">
+        结束
+      </div> -->
+      <p style="border-bottom:1px solid #d7d9dc;margin-top:35px;"></p>
+      <!-- <p style="margin: 15px 0;font-weight: bold;">My Workflow</p>
+      <nz-input [(ngModel)]="inputValue" [nzPlaceHolder]="'任务名称…'"></nz-input>
+      <div *ngFor="let item of leftNameList"  draggable="true" (dragstart)="drag($event, item.flowName, 4, item)" data-mark="rectangle" class="jtk-drag-item">
+          {{item.flowName}}
+      </div>
+      <div>第<nz-input [(ngModel)]="_current"></nz-input>页</div> -->
+      
+    </nav>
+ 
+    <!-- <button (click)="save()" style="position:fixed;right:15px;top:75px;z-index:9999;">保存</button>   -->
+    <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas" style="width:calc(100% - 200px);height:calc(100vh - 320px);overflow:auto;"
+      (dragover)="allowDrop($event)" (drop)="drop($event)" #targetContent>
+      <div class="task-name"> 
+        <nz-input [(ngModel)]="taskName" [nzPlaceHolder]="'My Workflow...'"></nz-input>
+        <input type="text" [(ngModel)]="taskDesc" placeholder="输入描述">
+      </div>
+      <div *ngFor="let item of flowChartArr" class="jtk-node" 
+          [class.window]="item.type =='square'"
+          [class.path]="item.type =='rhombus'"
+          [class.small-window]="item.type =='rectangle'"
+          [class.ellipse]="item.type =='end' || item.type =='start'"
+          [id]="'flowchartWindow'+item.index"
+          [style.top]="item.offset.top + 'px'"
+          [style.left]="item.offset.left + 'px'" (mouseenter)="item.isHide=false" (mouseleave)="item.isHide=true">
+          <!-- 长方形 和 正方形 -->
+        <div *ngIf="item.type =='square' || item.type =='rectangle'" style="display:inline">
+             
+            <nz-popconfirm [nzTitle]="'确定要删除这个任务吗？'" (nzOnConfirm)="confirm(item)" (nzOnCancel)="cancel(item)">
+              <a nz-popconfirm>
+                  <div class="delete" [hidden]="item.isHide">
+                      <i class="anticon anticon-close-circle" style="color:#000"></i>
+                    <!-- <i class="anticon anticon-close-circle"></i> -->
+                  </div>
+              </a>
+            </nz-popconfirm>
+            <div class="edit" [hidden]="item.isHide" (click)="editEndpoint(item)">
+                <i class="anticon anticon-edit"></i>
+            </div>
+            <strong>{{item.text._type}}</strong>
+            <br/>
+            <br/>
+        </div>
+        <!-- 开始 -->
+        <svg height="50" width="80" fill="#234b5e" *ngIf="item.type=='start'">
+            <ellipse class="outer" cx="40" cy="25" rx="40" ry="25"></ellipse>
+            <ellipse class="inner" cx="40" cy="25" rx="25" ry="25"></ellipse>
+            <text dominant-baseline="central" text-anchor="middle" x="40" y="25" fill="#f7ebca">
+                开始
+            </text>
+          </svg>
+          <!-- 结束 -->
+          <svg height="50" width="80" fill="#234b5e" *ngIf="item.type=='end'">
+              <ellipse class="outer" cx="40" cy="25" rx="40" ry="25"></ellipse>
+              <ellipse class="inner" cx="40" cy="25" rx="25" ry="25"></ellipse>
+              <text dominant-baseline="central" text-anchor="middle" x="40" y="25" fill="#f7ebca">
+                  结束
+              </text>
+          </svg>
+          <!-- 菱形 -->
+          <svg width="80" height="80" fill='#234b5e' *ngIf="item.type =='rhombus'">
+              <path d="M 40 0 L 80 40 L 40 80 L 0 40 Z" class="outer"></path>
+              <path d="M 40 10 L 70 40 L 40 70 L 10 40 Z" class="inner"></path>
+              <text text-anchor="middle" x="40" y="40" dominant-baseline="central" fill='#f7ebca'>{{item.text}}</text>
+          </svg>
+      </div>
+    </div>
+  </div>
+</div>

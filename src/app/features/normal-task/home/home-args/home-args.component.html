@@ -1,0 +1,13 @@
+<div nz-row class="label" *ngFor="let item of arr" >
+    <div nz-col [nzSpan]="6">
+      <label>{{item.key}}</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [nzSize]="'large'" [(ngModel)] = "item.value"></nz-input>
+    </div>
+</div>
+<div nz-row class="label">
+    <div nz-col [nzSpan]="6" [nzOffset]="16">
+        <button class="btn-btn" style="background:#009cff;padding:0 35px;" (click)="run()">确认运行</button>
+    </div>
+</div>

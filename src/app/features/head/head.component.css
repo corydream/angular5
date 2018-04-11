@@ -1,0 +1,66 @@
+.head {
+  height: 80px;
+  background: #354050;
+  overflow: hidden;
+}
+.head .inner {
+  display: flex;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.head .logo {
+  float: left;
+  line-height: 66px;
+  padding-right: 30px;
+}
+.head .logo > a {
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+.head .logo > a:hover {
+  text-decoration: none;
+}
+.head .nav {
+  flex-grow: 1;
+  line-height: 66px;
+  font-size: 18px;
+  display: flex;
+}
+.head .nav > li > a {
+  padding: 0 20px;
+  color: #fefefe;
+  opacity: .6;
+}
+.head .nav > li > a:hover {
+  text-decoration: none;
+}
+.head .nav > li.active > a {
+  color: #fff;
+  opacity: 1;
+}
+.head .account {
+  display: flex;
+  justify-content: flex-end;
+  line-height: 66px;
+  font-size: 18px;
+  flex-grow: 1;
+}
+.head .account > a {
+  opacity: .6;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: normal;
+  margin-left: 8px;
+  padding-left: 8px;
+  color: #fff;
+  border-left: 1px solid #767676;
+}
+.head .account > a:hover {
+  text-decoration: none;
+}
+.head .account.active > a {
+  color: #fff;
+  opacity: 1;
+}

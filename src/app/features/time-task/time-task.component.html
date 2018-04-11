@@ -1,0 +1,9 @@
+<div class="time-task" style="height: calc(100vh - 80px);">
+    <div class="table-list">
+        <p class="table-list-item" *ngFor="let item of menu" routerLinkActive="active">
+            <a [routerLink]="item.route">{{item.name}}</a>
+        </p>
+       <p class="underline"></p>
+    </div>
+    <router-outlet></router-outlet>
+</div>

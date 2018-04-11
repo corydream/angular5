@@ -1,0 +1,54 @@
+<div class="normal-task">
+  <div class="search-content">
+      <p class="search-input">
+          <input type="text" [placeholder]="searchPlaceHolder" [(ngModel)]="_keyword">
+          <span><i class="fa fa-search"></i></span>
+      </p>
+      <p class="timepicker">
+          <nz-rangepicker [(ngModel)]="_dateRange" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
+      </p>
+      <p>
+        <button class="btn-btn" style="background:#495361" (click)="searchBtn()">搜索</button>
+        <button class="btn-btn" style="background:#009cff" [disabled]="_multOpts" (click)="taskRun()">
+            <i style="margin-right:5px" class="anticon anticon-caret-right"></i><span>运行</span>
+        </button>
+        <!-- <button class="btn-btn" style="background:#009cff;padding:0 29px;"  (click)="taskSubmit()">
+          <span>提交</span>
+      </button> -->
+      </p>
+      <p class="right-button">
+          <!-- <a [routerLink]="['../info']" [queryParams]="{id:1}">商品描述</a> -->
+        <button class="btn-btn" style="background:#ef4149" [routerLink]="['../list/info']">新建任务</button>
+        <button class="btn-btn" style="background:#009cff" (click)="deleteAll()">删除任务</button>
+      </p>
+    </div>
+    <div class="table-container">
+      <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [(nzPageSize)]="_pageSize" [nzTotal]="_total" [(nzPageIndex)]="_pageIndex" 
+       (nzPageIndexChange)="_refreshTables()" (nzPageSizeChange)="_refreshTables(true)" nzShowSizeChanger nzShowSizeChanger nzShowQuickJumper>
+        <thead nz-thead >
+          <tr>
+            <th nz-th nzCheckbox>
+              <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+              </label>
+            </th> 
+            <th nz-th *ngFor="let list of tablelist" ><span>{{list.title}}</span></th>
+          </tr>
+        </thead>
+        <tbody nz-tbody>
+          <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+            <td nz-td nzCheckbox>
+                <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)"></label>
+            </td>
+            <td nz-td>{{data.flowName}}</td>
+            <td nz-td>{{data.age}}</td>
+            <td nz-td>{{data.updaterid}}</td>
+            <td nz-td>{{data.dependName}}</td>
+            <td nz-td>{{data.createTime}}</td>
+            <td nz-td>{{data.lastUpdateTime}}</td>
+            <td nz-td><a [routerLink]="['../list/info']" [queryParams]="{name: data.flowName}">编辑</a></td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <!-- <app-home></app-home> -->
+  </div>

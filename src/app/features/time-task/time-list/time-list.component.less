@@ -1,0 +1,137 @@
+.time-task{
+    width: 100%;
+    padding: 0 2%;
+    background: #f7f7f7;
+    .table-list{
+        height: 60px;
+        display: flex;
+        position: relative;
+        .underline{
+            width: 100%;
+            border-bottom: 1px solid #bcc0c5;
+            position: absolute;
+            bottom: 1px;
+            left: 0;
+        }
+        .table-list-item{
+            color:#787e86;
+            line-height: 70px;
+            width: 140px;
+            text-align: center;
+            margin-right: 150px; 
+            cursor: pointer; 
+            font-weight: bold;  
+            >a{
+                height:60px;
+                text-decoration: none;
+                display: inline-block;
+                color:#aeb1b5;
+              }
+            &.active>a{
+                color:#354050;
+            }          
+        }
+        .table-list-item:first-child{
+            margin-left: 52px;
+        }
+        .active{
+            color: #354050;
+            z-index: 1;
+            border-bottom: 3px solid #009cff;
+        }
+    }
+    .search-content{
+        margin: 30px 0;
+        padding: 40px 32px;
+        height: 110px;
+        background: #fff;
+        border-radius: 1px;
+        box-shadow: 3px 7px 2px #edeeee;
+        >p{
+            display: block;
+            float: left;
+        }
+        .right-button{
+            float: right;
+        }
+        .search-input{
+            width: 230px;
+            position: relative;
+            padding: 4px 17px;
+            height: 30px;
+            cursor: text;
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, 0.65);
+            background-color: #fff;
+            background-image: none;
+            border-radius: 20px;
+            transition: all .3s;
+            border: 1px solid #354050;
+            margin-right: 30px;
+            input{
+                border: none;
+                width: 176px;
+            }
+            input:focus,textarea:focus {
+                outline: none;
+            }
+        }
+        .timepicker{
+            border: 1px solid #354050;
+            width: 330px;
+            border-radius: 4px;
+            height: 30px;
+        }
+    }
+    .tasking-nav{
+        margin: 0 32px 20px;
+        overflow: hidden;
+        width: 178px;
+        border: 1px solid #354050;
+        border-radius: 2px;
+        >p{
+            width: 90px;
+            display: inline-block;
+            background: #fff;
+            color: #354050;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            cursor: pointer;
+        }
+        >p:last-child{
+            margin-left: -4px;
+        }
+        .active{
+            background: #495361;
+            color: #fff;
+        }
+    }
+}
+
+// 按钮样式
+.btn-btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 500;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1.15;
+    padding: 0 22px;
+    font-size: 12px;
+    border-radius: 4px;
+    height: 30px;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    position: relative;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fff;
+    vertical-align: 1px;
+    margin-left: 30px;
+    color: #fff;
+}

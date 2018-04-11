@@ -1,0 +1,24 @@
+.inner {
+  width: 1000px;
+  padding-top: 20px;
+  border-top: 1px solid #dfdfdf;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-grow: 1;
+}
+.inner .links {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+.inner .links li {
+  padding: 0 15px;
+  border-right: 1px solid #dfdfdf;
+}
+.inner .links li:last-child {
+  border-right: none;
+}
+.inner .links li a {
+  color: #999;
+}

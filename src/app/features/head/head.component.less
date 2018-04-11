@@ -1,0 +1,75 @@
+@import "../../../styles/ant-ui/themes/default";
+@import "../../../styles/ant-ui/mixins/index";
+.head {
+  height: 80px;
+  background: #354050;
+  overflow: hidden;
+  .inner {
+    display: flex;
+    min-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .logo {
+    float: left;
+    width: 199px;
+    margin: 25px 26px 0 50px;
+    height: 30px;
+    background-size: 100% 100%;
+    display: flex;
+    >a {
+      &:hover {
+        text-decoration: none
+      }
+      font-size: 14px;
+      color: #fff;
+      text-decoration:none;
+    }
+    padding-right: 30px;
+  }
+  .nav {
+    flex-grow: 1;
+    line-height: 80px;
+    font-size: 14px;
+    display: flex;
+    margin-left: 60px;
+    >li {
+      :first-child{
+        margin-right: 40px;
+      }
+      >a {
+        padding: 0 35px;
+        height:78px;
+        text-decoration: none;
+        display: inline-block;
+        color:#aeb1b5;
+      }
+      &.active {
+        >a {
+          color: #fff;
+          background:#495361;
+          border-bottom: 2px solid #009cff;
+        }
+      }
+    }
+  }
+  .account {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 80px;
+    font-size: 14px;
+    flex-grow: 1;
+    color: #fff;
+    margin-right: 50px;
+    span:last-child{
+      margin-left: 30px;
+      cursor: pointer;
+    }
+    .help-icon{
+      margin-left: 10px;
+    }
+    span:first-child{
+      cursor: pointer;
+    }
+  }
+}

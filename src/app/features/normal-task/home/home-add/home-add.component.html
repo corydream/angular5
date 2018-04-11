@@ -1,0 +1,100 @@
+<div nz-row class="label">
+  <div nz-col [nzSpan]="6">
+    <label>修改标题</label>
+  </div>
+  <div nz-col [nzSpan]="12">
+      <nz-input [(ngModel)]="_type.type" [nzSize]="'large'" [disabled]="_disabled"></nz-input>
+  </div>
+</div>
+<!-- hive -->
+<div>
+  <div nz-row class="label">
+    <div nz-col [nzSpan]="6">
+        <label>hsql.path</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [(ngModel)]="_path" [nzSize]="'large'" [nzPlaceHolder]="'hsql.path…'"></nz-input>
+    </div>
+    <div nz-col [nzSpan]="2">
+      <button class="btn-btn" style="background:#cdcdcd;padding: 0 8px;
+      margin-left: 1px;" (click)="choosePath()">...</button>
+    </div>
+  </div>
+</div>
+<!-- shell -->
+<!-- <div *ngIf="_type.typeNum == '2'" >
+  <div nz-row class="label">
+    <div nz-col [nzSpan]="6">
+        <label>shell</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [(ngModel)]="shell" [nzType]="'textarea'" [nzRows]="'4'" [nzPlaceHolder]="''"></nz-input>
+    </div>
+  </div>
+</div> -->
+<!-- kettle -->
+<!-- <div *ngIf="_type.typeNum == '3'" >
+  <div nz-row class="label">
+    <div nz-col [nzSpan]="6">
+        <label>-job</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [(ngModel)]="job" [nzSize]="'large'" [nzPlaceHolder]="'job'"></nz-input>
+    </div>
+  </div>
+  <div nz-row class="label">
+    <div nz-col [nzSpan]="6">
+        <label>-dir</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [(ngModel)]="dir" [nzSize]="'large'" [nzPlaceHolder]="'dir'"></nz-input>
+    </div>
+  </div>
+  <div nz-row class="label">
+    <div nz-col [nzSpan]="6">
+        <label>-rep</label>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-input [(ngModel)]="rep" [nzSize]="'large'" [nzPlaceHolder]="'rep'"></nz-input>
+    </div>
+  </div>
+</div>
+<div> -->
+  <!-- system -->
+<div nz-row class="label" *ngIf="_type.typeNum > '3'" >
+  <div nz-col [nzSpan]="6">
+      <label>system</label>
+  </div>
+  <div nz-col [nzSpan]="12">
+      <nz-select style="width: 100%;" [(ngModel)]="selectedOption" [nzPlaceHolder]="'choose option'" nzAllowClear>
+          <nz-option
+            *ngFor="let option of options"
+            [nzLabel]="option.label"
+            [nzValue]="option"
+            [nzDisabled]="option.disabled">
+          </nz-option>
+        </nz-select>
+  </div>
+</div>
+  <p *ngIf="_type.arguArr.length == 0" class="arguments-minus" (click)="addArgs(_type)"><i class="fa fa-plus"></i>arguments</p>
+<div nz-row class="label change-args" *ngFor="let item of _type.arguArr;let i = index">
+    <div nz-col [nzSpan]="6">
+        <label>arguments</label>
+    </div>
+    <div nz-col [nzSpan]="5">
+      <nz-input [nzSize]="'large'" [(ngModel)]="item.key"></nz-input>
+    </div>
+    <div nz-col [nzSpan]="1">=$</div>
+    <div nz-col [nzSpan]="5">
+      <nz-input [nzSize]="'large'" [(ngModel)]="item.value"></nz-input>
+    </div>
+    <div nz-col [nzSpan]="3" class="ant-icon">
+      <i class="anticon anticon-plus-circle-o" (click)="addArgs(_type)"></i>
+      <i class="anticon anticon-minus-circle-o" (click)="minusArgs(i,_type)"></i>
+    </div>
+</div>
+<div nz-row class="label">
+  <div nz-col [nzSpan]="6" [nzOffset]="16">
+      <button class="btn-btn" style="background:#009cff;padding:0 35px;" (click)="addDrag(_type)">添加</button>
+  </div>
+</div>

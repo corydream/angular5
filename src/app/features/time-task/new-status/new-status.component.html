@@ -1,0 +1,79 @@
+<div class="status-info" style="height:calc(100vh - 190px);">
+        <div class="border-container">
+          <p class="border-title">{{routeInfo.name}}</p>
+          <div class="border-nav">
+            <ul>
+              <li *ngFor="let item of navArr" [ngClass]="{'active':item.flag}" (click)="tabNav(item.index)">{{item.item}}</li>
+            </ul>
+          </div>
+          <div class="border-item" *ngIf="currentItem == 0" style="height:calc(100vh - 410px);margin-top:-40px;">
+              <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [(nzPageSize)]="_pageSize" [nzTotal]="_total" [(nzPageIndex)]="_pageIndex" 
+       (nzPageIndexChange)="_refreshTables()" (nzPageSizeChange)="_refreshTables(true)"   nzShowQuickJumper>
+               <thead nz-thead >
+                 <tr> 
+                    <th nz-th nzCheckbox>
+                        <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+                        </label>
+                      </th>
+                   <th nz-th *ngFor="let list of viewTableArr" ><span>{{list.title}}</span></th>
+                 </tr>
+               </thead>
+               <tbody nz-tbody>
+                 <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                   <td nz-td nzCheckbox>
+                      <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)"></label>
+                   </td>
+                   <td nz-td><a [routerLink]="['/page/normal-task/status/view']" [queryParams]="{id: data.wfInstanceid}">{{data.instanceid}}</a></td>
+                   <td nz-td>{{data.wfInstanceid}}</td>
+                   <td nz-td>{{data.flowName}}</td>
+                   <td nz-td>{{data.clazz}}</td>
+                   <td nz-td>{{data.status}}</td>
+                   <td nz-td>{{data.startTime}}</td>
+                   <td nz-td>{{data.endTime}}</td>
+                 </tr>
+               </tbody>
+             </nz-table>
+          </div>
+          <div class="border-item" *ngIf="currentItem == 1" style="height:calc(100vh - 410px);margin-top:-40px;">
+            <nz-table #nzTable1 [nzAjaxData]="_dataSet1" [(nzPageSize)]="_pageSize" [nzLoading]="_loading" [nzIsPagination]="_isPaging" [nzTotal]="_total1">
+                    <thead nz-thead >
+                      <tr> 
+                        <th nz-th *ngFor="let list of scheArr" ><span>{{list.title}}</span></th>
+                      </tr>
+                    </thead>
+                    <tbody nz-tbody>
+                      <tr nz-tbody-tr *ngFor="let data of nzTable1.data">
+                        <td nz-td>{{data.calculate}}</td>
+                        <td nz-td>{{data.dependAction}}</td>
+                        <td nz-td>{{data.remoteActionStr}}</td>
+                        <td nz-td>{{data.remoteInstanceid}}</td>
+                        <td nz-td>{{data.schedulerName}}</td>
+                        <td nz-td>{{data.version}}</td>
+                      </tr>
+                    </tbody>
+                  </nz-table>
+          </div>
+          <div class="border-item" *ngIf="currentItem == 2" style="height:calc(100vh - 420px);">
+              <nz-table #nzTable1 [nzAjaxData]="_dataSetconf" [(nzPageSize)]="_pageSize" [nzLoading]="_loading" [nzIsPagination]="_isPaging" [nzTotal]="_total1">
+                  <thead nz-thead >
+                      <tr> 
+                        <th nz-th ><span>名称</span></th>
+                        <th nz-th ><span>值</span></th>
+                      </tr>
+                    </thead>
+                    <tbody nz-tbody>
+                      <tr nz-tbody-tr *ngFor="let data of nzTable1.data">
+                        <td nz-td>{{data.name}}</td>
+                        <td nz-td>{{data.value}}</td>
+                      </tr>
+                    </tbody>
+                </nz-table>
+          </div>
+          <div class="border-item" *ngIf="currentItem == 3" style="height:calc(100vh - 420px);overflow-y:auto;">
+             <p *ngFor="let item of noteStr" style="font-weight:bold">{{item}}</p>
+          </div>
+          <button class="btn-btn" style="background:#f5f5f5;padding:0 29px;color:#354050;border:1px solid #354050" [routerLink]="['../../status']">
+            <i style="margin-right:5px" class="fa fa-reply"></i><span>back</span>
+          </button>
+        </div>
+      </div>

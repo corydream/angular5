@@ -1,0 +1,259 @@
+// 拖动样式
+.container{
+  overflow:hidden;
+  background:#fff;
+}
+.flowchart-demo{
+  min-height: auto;
+  position: relative;
+  float: left;
+}
+.flowchart-demo .window,.flowchart-demo .small-window {
+  border: 1px solid #346789;
+  box-shadow: 2px 2px 19px #aaa;
+  -o-box-shadow: 2px 2px 19px #aaa;
+  -webkit-box-shadow: 2px 2px 19px #aaa;
+  -moz-box-shadow: 2px 2px 19px #aaa;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  opacity: 0.8;
+  width: 160px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  z-index: 20;
+  position: absolute;
+  background-color: #eeeeef;
+  color: black;
+  font-family: helvetica, sans-serif;
+  padding: 0.5em;
+  font-size: 0.9em;
+  -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+  -moz-transition: -moz-box-shadow 0.15s ease-in;
+  -o-transition: -o-box-shadow 0.15s ease-in;
+  transition: box-shadow 0.15s ease-in;
+}
+.window{
+  height: 80px;
+  line-height: 80px;
+}
+.small-window{
+  height: 40px;
+  line-height: 40px;
+}
+.flowchart-demo .window:hover,.flowchart-demo .small-window:hover {
+  box-shadow: 2px 2px 19px #444;
+  -o-box-shadow: 2px 2px 19px #444;
+  -webkit-box-shadow: 2px 2px 19px #444;
+  -moz-box-shadow: 2px 2px 19px #444;
+  opacity: 0.6;
+}
+
+.flowchart-demo .active {
+  border: 1px dotted green;
+}
+
+.flowchart-demo .hover {
+  border: 1px dotted red;
+}
+
+#flowchartWindow1 {
+  top: 34em;
+  left: 5em;
+}
+
+#flowchartWindow2 {
+  top: 7em;
+  left: 36em;
+}
+
+#flowchartWindow3 {
+  top: 27em;
+  left: 48em;
+}
+
+#flowchartWindow4 {
+  top: 23em;
+  left: 22em;
+}
+
+.flowchart-demo .jtk-connector {
+  z-index: 4;
+}
+
+.flowchart-demo .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+  z-index: 21;
+  cursor: pointer;
+}
+
+.flowchart-demo .aLabel {
+  background-color: white;
+  padding: 0.4em;
+  font: 12px sans-serif;
+  color: #444;
+  z-index: 21;
+  border: 1px dotted gray;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.flowchart-demo .aLabel.jtk-hover {
+  background-color: #5C96BC;
+  color: white;
+  border: 1px solid white;
+}
+
+.window.jtk-connected {
+  border: 1px solid green;
+}
+
+.jtk-drag {
+  outline: 4px solid rgba(52, 52, 52, 0.3)!important;
+}
+
+path, .jtk-endpoint {
+  cursor: pointer;
+}
+
+.jtk-overlay {
+  background-color:transparent;
+}
+
+//
+.nav{
+  width: 200px;
+  box-sizing: border-box;
+  border-right: 1px solid #d7d9dc;
+  float: left;
+  text-align: center;
+}
+.jtk-drag-item{
+  display: inline-block;
+  border:1px solid #333;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 20px;
+  cursor: move;
+}
+.ellipse,.path{
+  width: 80px;
+  cursor: pointer;
+  position: absolute;
+}
+.ellipse{
+  height: 50px;
+}
+.ellipse svg {
+  position: absolute;
+  stroke: none;
+  fill: #234b5e!important;
+  color: #fff;
+}
+.ellipse text {
+  stroke: none;
+  fill: #f7ebca;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+.path{
+  height: 80px;
+}
+.delete,.edit{
+  position: absolute;
+  top: -11px;
+}
+.delete{
+  right: 2px;
+}
+.edit{
+  right: 18px;
+}
+// 按钮样式
+.btn-btn{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 500;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1.15;
+  padding: 0 22px;
+  font-size: 12px;
+  border-radius: 4px;
+  height: 30px;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  position: relative;
+  color: rgba(0, 0, 0, 0.65);
+  background-color: #fff;
+  vertical-align: 1px;
+  margin-left: 30px;
+  color: #fff;
+}
+.search-content{
+  margin: 30px 0;
+  padding: 40px 32px;
+  height: 110px;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 3px 7px 2px #edeeee;
+  >p{
+      display: block;
+      float: left;
+  }
+  .right-button{
+      float: right;
+  }
+  .search-input{
+      width: 230px;
+      position: relative;
+      padding: 4px 17px;
+      height: 28px;
+      cursor: text;
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.65);
+      background-color: #fff;
+      background-image: none;
+      border-radius: 20px;
+      transition: all .3s;
+      border: 1px solid #354050;
+      margin-right: 30px;
+      input{
+          border: none;
+          width: 176px;
+      }
+      input:focus,textarea:focus {
+          outline: none;
+      }
+  }
+  .timepicker{
+      border: 1px solid #354050;
+      width: 330px;
+      border-radius: 4px;
+      height: 30px;
+  }
+}
+nz-input{
+  width: 140px;
+}
+.task-name{
+  margin: 10px auto;
+  width: 200px;
+  input{
+    margin-top: 5px;
+    border: none;
+    text-align: center;
+  }
+}
+
+
+
+
+

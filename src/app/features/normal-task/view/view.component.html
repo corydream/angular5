@@ -1,0 +1,53 @@
+<div class="status-info" style="height:calc(100vh - 190px);">
+  <div class="border-container">
+    <p class="border-title">{{routeInfo.name}}</p>
+    <div class="border-nav">
+      <ul>
+        <li *ngFor="let item of navArr" [ngClass]="{'active':item.flag}" (click)="tabNav(item.index)">{{item.item}}</li>
+      </ul>
+    </div>
+    <div class="border-item " *ngIf="currentItem == 0" style="height:calc(100vh - 410px);">
+        <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [(nzPageSize)]="_pageSize" [nzTotal]="_total" [(nzPageIndex)]="_pageIndex" 
+          (nzPageIndexChange)="_refreshTables()"  (nzPageSizeChange)="_refreshTables(true)" nzShowSizeChanger >
+         <thead nz-thead >
+           <tr> 
+             <th nz-th *ngFor="let list of viewTableArr" ><span>{{list.title}}</span></th>
+           </tr>
+         </thead>
+         <tbody nz-tbody>
+           <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+             <td nz-td style="color:#42abff">{{data.instanceid}}</td>
+             <td nz-td>{{data.actionName}}</td>
+             <td nz-td>{{data.clazz}}</td>
+             <td nz-td>{{data.status}}</td>
+             <td nz-td>{{data.startTime}}</td>
+             <td nz-td>{{data.endTime}}</td>
+             <td nz-td><a (click)="reset(data.instanceid, data.status)">重启</a></td>
+           </tr>
+         </tbody>
+       </nz-table>
+    </div>
+    <div class="border-item item-json" *ngIf="currentItem == 1" style="height:calc(100vh - 420px);" >
+        <nz-table #nzTable1 [nzAjaxData]="_dataSetconf" [(nzPageSize)]="_pageSize" [nzLoading]="_loading" [nzIsPagination]="_ispage" [nzTotal]="_total">
+            <thead nz-thead >
+              <tr> 
+                <th nz-th ><span>名称</span></th>
+                <th nz-th ><span>值</span></th>
+              </tr>
+            </thead>
+            <tbody nz-tbody>
+              <tr nz-tbody-tr *ngFor="let data of nzTable1.data">
+                <td nz-td>{{data.name}}</td>
+                <td nz-td>{{data.value}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </div>
+    <div class="border-item" *ngIf="currentItem == 2" style="height:calc(100vh - 440px);overflow-y:auto;margin-bottom:20px;">
+        <p *ngFor="let item of noteStr" style="font-weight:bold">{{item}}</p>
+    </div>
+    <button class="btn-btn" style="background:#f5f5f5;padding:0 29px;color:#354050;border:1px solid #354050" [routerLink]="['../../status']">
+      <i style="margin-right:5px" class="fa fa-reply"></i><span>back</span>
+    </button>
+  </div>
+</div>

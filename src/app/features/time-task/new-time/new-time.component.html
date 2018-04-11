@@ -1,0 +1,132 @@
+<div class="normal-task">
+    <div class="search-content">
+        <p>
+            <button class="btn-btn" style="background:#f5f5f5;padding:0 29px;color:#354050;border:1px solid #354050" [routerLink]="['../../list']">
+                <i style="margin-right:5px" class="fa fa-reply"></i>
+                <span>back</span>
+            </button>
+        </p>
+        <p class="right-button">
+            <button class="btn-btn" style="background:#009cff;padding:0 12px;" (click)="runTask()">
+                <i style="margin-right:5px" class="anticon anticon-caret-right"></i>
+                <span>立即运行</span>
+            </button>
+            <button class="btn-btn" style="background:#f5f5f5;color:#354050;border:1px solid #354050" (click)="savework()">
+                <i style="margin-right:5px" class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+        </p>
+    </div>
+    <div class="container">
+        <div class="container-menu">
+            <div class="menu-item">
+                <p>
+                    <input style="width:100%" type="text" class="menu-input menu-title" [(ngModel)]="routeInfo.name" />
+                </p>
+                <p>
+                    <input style="width:100%" type="text" class="menu-input menu-desc" [(ngModel)]="routeInfo.desc" />
+                </p>
+            </div>
+            <div class="menu-item">
+                <p class="menu-title">My workFlow</p>
+                <p class="menu-cover" *ngIf="cover_workflow" >{{workFlowName}}</p>
+                <nz-select style="width: 232px;" nzAllowClear [nzPlaceHolder]="workFlowName" [(ngModel)]="workFlowName"
+                nzShowSearch (nzOpenChange)="changeWorkFlow($event, workFlowName)">
+                <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                </nz-option>
+            </nz-select>
+            </div>
+            <div class="menu-item">
+                <p class="menu-title">How often?</p>
+                <p class="menu-desc">
+                    <span class="crontab">Crontab</span>
+                    <nz-input [(ngModel)]="crontab" [nzPlaceHolder]="'请输入...'"></nz-input>
+                </p>
+                <p class="menu-check">
+                    <label nz-checkbox [(ngModel)]="_checked" (ngModelChange)="_Crontab($event)">
+                        <span>Advanced syntax</span>
+                    </label>
+                </p> 
+                <p class="menu-desc" *ngIf="_checked" >
+                    <span class="crontab">&nbsp;&nbsp;&nbsp;From</span>
+                    <span class="time">
+                        <nz-datepicker [(ngModel)]="_startDate" [nzPlaceHolder]="'Select date'" [nzFormat]="'YYYY-MM-DD'"></nz-datepicker>
+                    </span>
+                    <span class="time">
+                        <nz-timepicker [(ngModel)]="_startTime" [nzFormat]="'HH:mm:ss'"></nz-timepicker>
+                    </span>
+                </p>
+                <p class="menu-desc" *ngIf="_checked">
+                    <span class="crontab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To</span>
+                    <span class="time">
+                        <nz-datepicker [(ngModel)]="_endDate" [nzPlaceHolder]="'Select date'"  [nzFormat]="'YYYY-MM-DD'"></nz-datepicker>
+                    </span>
+                    <span class="time">
+                        <nz-timepicker [(ngModel)]="_endTime" [nzFormat]="'HH:mm:ss'"></nz-timepicker>
+                    </span>
+                </p>
+            </div>
+            <div class="menu-item">
+                <p class="menu-title">Parameters</p>
+                <p class="menu-desc" *ngFor="let item of _params;let i = index;">
+                    <span class="parameters">
+                        <input type="text" class="menu-input" [(ngModel)]="item.actionName" [placeholder]="'actionName'" disabled/>
+                    </span>
+                    <span class="parameters">
+                        <input type="text" class="menu-input" [(ngModel)]="item.key" [placeholder]="'key'" disabled/>
+                    </span>
+                    <span class="parameters">
+                        <input type="text" class="menu-input" [(ngModel)]="item.value" [placeholder]="'value'" />
+                    </span>
+                    <!-- <i class="anticon anticon-plus-circle-o" (click)="addArgs()"></i>
+                    <i class="anticon anticon-minus-circle-o" (click)="minusArgs(i)"></i> -->
+                </p>
+            </div>
+        </div>
+        <!-- bundles -->
+        <div class="bundles-container">
+            <p class="bundles-title">Bundles</p>
+            <div class="bundles-item" *ngFor="let b_item of _bundles;let b_i = index;">
+                <div class="item-left item-item">
+                    <div class="item-list">
+                        <p class="menu-title">Scheduler</p>
+                        <nz-select style="width: 232px;" nzAllowClear [nzPlaceHolder]="'Select a Scheduler'" [(ngModel)]="b_item.remoteInstanceid"
+                            nzShowSearch (nzOpenChange)="changeScheduler($event,b_i)">
+                            <nz-option *ngFor="let option of b_item._scheduler" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                    <div class="item-list">
+                        <p class="menu-title">ID</p>
+                        <nz-select style="width: 232px;" nzAllowClear [nzPlaceHolder]="'Select an ID'" [(ngModel)]="b_item.version" nzShowSearch (nzOpenChange)="changeID($event,b_i,b_item)">
+                            <nz-option *ngFor="let option of b_item._IDArr" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                    <div class="item-list">
+                        <p class="menu-title">Actions</p>
+                        <nz-select style="width: 232px;" [nzMode]="'multiple'" nzAllowClear [nzPlaceHolder]="'Select  Actions'" [(ngModel)]="b_item._ActionsArrName" nzShowSearch (nzOpenChange)="changeActions($event,b_i,b_item)">
+                            <nz-option *ngFor="let option of b_item._actionsArr" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+                <div class="item-arrow item-item">
+                </div>
+                <div class="item-right item-item" style="padding:28px;margin-top: 117px;">
+                    <p class="menu-title">Actions</p>
+                    <nz-select style="width: 232px;" nzAllowClear [nzPlaceHolder]="'Select an Action'" [(ngModel)]="b_item.dependAction" nzShowSearch (nzOpenChange)="changeRightActions($event,b_i,b_item)">
+                            <nz-option *ngFor="let option of b_item._rightActionArr" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                            </nz-option>
+                        </nz-select>
+                </div>
+                <p class="bundles-btn bundles-btn1" (click)="addBundles(b_item, b_i)">
+                    <i class="fa fa-plus"></i>
+                </p>
+                <p class="bundles-btn bundles-btn2" (click)="minusBundles(b_item, b_i)">
+                    <i class="fa fa-minus"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
